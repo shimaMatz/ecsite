@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- フラッシュメッセージを表示するために以下を追加 -->
+    @if(Session::has('flash_message'))
+        <div class="alert alert-success">
+            {{ session('flash_message') }}
+        </div>
+    @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -42,7 +48,14 @@
                         小計
                     </div>
                     <div class="card-body">
+                        <div>
                         {{ $subtotal }}円
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" href="/buy" role="button">
+                                レジに進む
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
