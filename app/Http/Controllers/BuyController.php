@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\CartItem; 
 use Illuminate\Http\Request;
+use App\Mail\Buy;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth; 
 
 class BuyController extends Controller
@@ -24,6 +26,7 @@ class BuyController extends Controller
     public function store(Request $request)
     {
         if( $request->has('post') ){
+            Mail::to(Auth::user()->email)->send(new Buy());
             CartItem::where('user_id', Auth::id())->delete();
             return view('buy/complete');
         }
