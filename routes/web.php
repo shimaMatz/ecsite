@@ -15,12 +15,26 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'ItemController@index');
-Route::get('/item/{item}', 'ItemController@show');
-Route::post('/cartitem', 'CartItemController@store');
-Route::get('/cartitem', 'CartItemController@index');
-Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy');
-Route::put('/cartitem/{cartItem}', 'CartItemController@update');
+Route::name('item.')->group(function(){
+    Route::get('/', 'ItemController@index')->name('index');
+    Route::get('/item/{item}', 'ItemController@show')->name('show');
+});
+
+// Route::get('/', 'ItemController@index');
+// Route::get('/item/{item}', 'ItemController@show');
+
+Route::name('cartitem.')->group(function(){
+    Route::post('/cartitem', 'CartItemController@store')->name('store');
+    Route::get('/cartitem', 'CartItemController@index')->name('index');
+    Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy')->name('destroy');
+    Route::put('/cartitem/{cartItem}', 'CartItemController@update')->name('update');
+});
+
+
+// Route::post('/cartitem', 'CartItemController@store');
+// Route::get('/cartitem', 'CartItemController@index');
+// Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy');
+// Route::put('/cartitem/{cartItem}', 'CartItemController@update');
 Route::get('/buy', 'BuyController@index');
 Route::post('/buy', 'BuyController@store');
 Auth::routes();
