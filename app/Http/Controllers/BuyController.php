@@ -20,6 +20,10 @@ class BuyController extends Controller
         foreach($cartitems as $cartitem){
             $subtotal += $cartitem->amount * $cartitem->quantity;
         }
+
+        if (!$subtotal) {
+            return redirect(route('cartitem.index'));
+        }
         return view('buy/index', ['cartitems' => $cartitems, 'subtotal' => $subtotal]);
     }
 
