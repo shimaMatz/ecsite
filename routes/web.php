@@ -11,32 +11,20 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::name('item.')->group(function(){
     Route::get('/', 'ItemController@index')->name('index');
     Route::get('/item/{item}', 'ItemController@show')->name('show');
 });
 
-// Route::get('/', 'ItemController@index');
-// Route::get('/item/{item}', 'ItemController@show');
-
 Route::name('cartitem.')->group(function(){
-    Route::post('/cartitem', 'CartItemController@store')->name('store');
-    Route::get('/cartitem', 'CartItemController@index')->name('index');
-    Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy')->name('destroy');
-    Route::put('/cartitem/{cartItem}', 'CartItemController@update')->name('update');
+    Route::post('/cartitem', 'CartItemController@store')->name('store')->middleware('auth');
+    Route::get('/cartitem', 'CartItemController@index')->name('index')->middleware('auth');
+    Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy')->name('destroy')->middleware('auth');
+    Route::put('/cartitem/{cartItem}', 'CartItemController@update')->name('update')->middleware('auth');
 });
 
-
-// Route::post('/cartitem', 'CartItemController@store');
-// Route::get('/cartitem', 'CartItemController@index');
-// Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy');
-// Route::put('/cartitem/{cartItem}', 'CartItemController@update');
-Route::get('/buy', 'BuyController@index');
-Route::post('/buy', 'BuyController@store');
+Route::get('/buy', 'BuyController@index')->middleware('auth');
+Route::post('/buy', 'BuyController@store')->middleware('auth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
