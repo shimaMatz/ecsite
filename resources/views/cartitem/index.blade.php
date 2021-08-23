@@ -10,6 +10,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                @if(count($cartitems))
                 <div class="card">
                     @foreach ($cartitems as $cartitem)
                         <div class="card-header">
@@ -41,6 +42,9 @@
                         </div>
                     @endforeach
                 </div>
+                @else
+                    カートに商品が入っていません。
+                @endif
             </div>
             <div class="col-md-4">
                 <div class="card">
