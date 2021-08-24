@@ -17,14 +17,17 @@ Route::name('item.')->group(function(){
 });
 
 Route::name('cartitem.')->group(function(){
-    Route::post('/cartitem', 'CartItemController@store')->name('store')->middleware('auth');
     Route::get('/cartitem', 'CartItemController@index')->name('index')->middleware('auth');
+    Route::post('/cartitem', 'CartItemController@store')->name('store')->middleware('auth');
     Route::delete('/cartitem/{cartItem}', 'CartItemController@destroy')->name('destroy')->middleware('auth');
     Route::put('/cartitem/{cartItem}', 'CartItemController@update')->name('update')->middleware('auth');
 });
 
-Route::get('/buy', 'BuyController@index')->middleware('auth');
-Route::post('/buy', 'BuyController@store')->middleware('auth');
+Route::name('buy.')->group(function(){
+    Route::get('/buy', 'BuyController@index')->name('index')->middleware('auth');
+    Route::post('/buy', 'BuyController@store')->name('store')->middleware('auth');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
